@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 .App-logo {
@@ -35,4 +36,38 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.canvas-holder {
+  display: block;
+  width: 100%;
+  height: 80vh;
+  position: absolute;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+  margin: 0px auto;
+}
+
+.banner-mono {
+  font-family: "Roboto Mono", monospace;
+  margin-bottom: 0;
+  color: darkseagreen;
+}
+
+.banner-name {
+  color: aqua;
+  font-size: 5.5rem;
+  margin-left: -0.4rem;
+}
+
+.banner-subtitle {
+  color: lightblue;
+}
+
+.banner-nav-container {
+  position: absolute;
+  bottom: 0;
 }
