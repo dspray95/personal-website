@@ -134,8 +134,6 @@ class DotHandler {
           let targetX = dot.xPos;
           let targetY = dot.yPos;
           if (outerConnection == "left") {
-            console.log("left");
-
             targetX = targetX - outerConnectionTolerance;
             targetY = targetY + dot.edgeConnectionAngleDelta;
           } else if (outerConnection == "right") {

@@ -1,5 +1,5 @@
 import React from "react";
-import DotHandler from "./Dot";
+import DotHandler from "../js/Dot";
 
 class Animation extends React.Component {
   constructor(props) {
@@ -7,15 +7,6 @@ class Animation extends React.Component {
     this.state = { angle: 0 };
     this.updateAnimationState = this.updateAnimationState.bind(this);
   }
-
-  // generateDots() {
-  //   let dots = [];
-  //   for (let i = 0; i < 100; i++) {
-  //     dots.push(new Dot(2));
-  //   }
-  //   console.log(dots);
-  //   return dots;
-  // }
 
   componentDidMount() {
     this.rAF = requestAnimationFrame(this.updateAnimationState);
