@@ -9,24 +9,17 @@ class AnimatedHeader extends React.Component {
   state = { hideBottom: false, hideTop: false };
 
   animateContent = () => {
-    const { isHide } = this.state;
-
-    // window.scrollY < this.prev
-    //   ? !isHide && this.setState({ isHide: true })
-    //   : isHide && this.setState({ isHide: false });
-    console.log(this.containerRef.clientHeight);
-    console.log(window.scrollY);
-    if (window.scrollY > this.containerRef.clientHeight / 10) {
+    if (window.scrollY > this.containerRef.clientHeight / 8) {
       this.setState({ hideBottom: true });
     }
-    if (window.scrollY > this.containerRef.clientHeight / 6) {
+    if (window.scrollY > this.containerRef.clientHeight / 4) {
       this.setState({ hideTop: true });
     }
 
-    if (window.scrollY < this.containerRef.clientHeight / 6) {
+    if (window.scrollY < this.containerRef.clientHeight / 4) {
       this.setState({ hideTop: false });
     }
-    if (window.scrollY < this.containerRef.clientHeight / 10) {
+    if (window.scrollY < this.containerRef.clientHeight / 8) {
       this.setState({ hideBottom: false });
     }
   };
@@ -39,11 +32,9 @@ class AnimatedHeader extends React.Component {
     window.removeEventListener("scroll", this.animateContent);
   }
 
-  getAnimation(direction, trigger) {}
-
   render() {
-    let hideBottom = this.state.hideBottom ? "animated-out-text-left" : " ";
-    let hideTop = this.state.hideTop ? "animate-out-text-right" : " ";
+    let hideBottom = this.state.hideBottom ? "animate-out-left" : " ";
+    let hideTop = this.state.hideTop ? "animate-out-right" : " ";
 
     return (
       <div
