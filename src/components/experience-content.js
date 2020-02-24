@@ -31,11 +31,18 @@ class Experience extends React.Component {
       this.setState({ startHideAbout: false });
     }
 
-    if (window.scrollY >= window.innerHeight * 4.5) {
+    if (window.scrollY >= window.innerHeight * 5) {
       this.setState({ hideAbout: true });
     }
-    if (window.scrollY < window.innerHeight * 4.5) {
+    if (window.scrollY < window.innerHeight * 5) {
       this.setState({ hideAbout: false });
+    }
+    
+    if(window.scrollY >= window.innerHeight * 5.5) {
+      this.setState({showTimeline: true });
+    }
+    else { 
+      this.setState({showTimeline: false});
     }
   };
 
@@ -76,8 +83,8 @@ class Experience extends React.Component {
       // aboutState = "about-peek-out-top";
     }
     if (this.state.hideAbout) {
-      animationLeftState = "animate-out-left";
-      animationRightState = "animate-out-right";
+      animationLeftState = "";
+      animationRightState = "";
       // aboutState = "about-animate-out-top";
     }
     // if (this.state.hideAbout) {
@@ -87,13 +94,13 @@ class Experience extends React.Component {
     return (
       <div className={"wrapper " + aboutState}>
         <div className={""}>
-          <div className={"about-left " + animationLeftState}>
-            <div className="about-left-inside">
+          <div className={"experience-left " + animationLeftState}>
+            <div className="experience-inside-left">
               <div className="center">EXPERIENCE</div>
             </div>
           </div>
-          <div className={"about-right " + animationRightState}>
-            <div className="experience-inside">
+          <div className={"experience-right " + animationRightState}>
+            <div className="experience-inside-right">
               <div className={"animated-title-text center " + textState1}>
                 EXPERIENCE
               </div>

@@ -202,15 +202,50 @@ a:hover {
 
 /* EXPERIENCE */
 
-.experience-inside {
-  color: lightblue;
-  font-size: 7rem;
-  width: 100%;
-  height: 100vh;
+.experience-left {
+  display: inline-block;
+  position: fixed;
+  width: 50vw;
+  height: 90vh;
+  top: 5vh;
+  left: 0;
+  transition: transform 1s ease-in;
+  transform: translateX(-50vw);
 }
+
+.experience-right {
+  display: inline-block;
+  position: fixed;
+  width: 50vw;
+  height: 90vh;
+  top: 5vh;
+  left: 0;
+  transition: transform 0.1s ease-in;
+  transform: translateX(150vw);
+}
+
+
+.experience-inside-left {
+  color: lightblue;
+  font-size: 8rem;
+  width: 100%;
+  height: 90vh;
+  background-color: transparent;
+  mix-blend-mode: screen;
+  text-align: center;
+}
+
+.experience-inside-right {
+  background-color: lightblue;
+  color: #1e2131;
+  font-size: 8rem;
+  width: 100%;
+  height: 90vh;
+}
+
 .experience-banner-container {
   position: fixed;
-  transition: transform 0.5s ease-in;
+  transition: transform 1s ease-in;
   transform: translateY(100vh);
   width: 100%;
   font-size: 15rem;
