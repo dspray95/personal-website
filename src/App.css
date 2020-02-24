@@ -209,7 +209,7 @@ a:hover {
   height: 90vh;
   top: 5vh;
   left: 0;
-  transition: transform 1s ease-in;
+  transition: transform 1s;
   transform: translateX(-50vw);
 }
 
@@ -220,152 +220,102 @@ a:hover {
   height: 90vh;
   top: 5vh;
   left: 0;
-  transition: transform 0.1s ease-in;
+  transition: transform 0.925s;
   transform: translateX(150vw);
 }
 
-
-.experience-inside-left {
+.experience-left-inside {
   color: lightblue;
-  font-size: 8rem;
+  font-size: 10rem;
   width: 100%;
   height: 90vh;
-  background-color: transparent;
   mix-blend-mode: screen;
   text-align: center;
+  font-size: 7rem;
 }
 
-.experience-inside-right {
+.experience-right-inside {
   background-color: lightblue;
   color: #1e2131;
-  font-size: 8rem;
+  font-size: 7rem;
   width: 100%;
   height: 90vh;
 }
 
-.experience-banner-container {
+/* TIMELINE */
+
+.timeline-container {
   position: fixed;
-  transition: transform 1s ease-in;
-  transform: translateY(100vh);
-  width: 100%;
-  font-size: 15rem;
-}
-
-.experience-banner {
-  color: lightblue;
-  position: relative;
-  display: inline-block;
-  border: 5px solid lightblue;
-  margin-top: 48px;
-}
-
-.experience-banner:after {
-  content: attr(data-text);
-  display: block;
-  position: absolute;
-  top: 0px;
-  width: 50%;
-  overflow: hidden;
-  background-color: lightblue;
-  color: #1e2131;
-}
-
-.experience-banner-peek {
-  transition: transform 0.5s ease-in;
-  transform: translateY(80vh);
-}
-
-.experience-banner-in {
-  transition: transform 0.5s ease-in;
-  transform: translateY(20vh);
-}
-
-.experience-banner-out {
-  transition: transform 0.5s ease-in;
-  transform: translateY(-100vh);
-}
-
-.timeline {
-  position: fixed;
-  top: 10vh;
-  left: 50%;
-  width: 50%;
-  height: 80vh;
-  border-left: 5px solid rgb(111, 148, 160);
-}
-
-.timeline-object-wrapper {
-  position: relative;
-  height: 10%;
-  left: -50%;
-}
-
-.timeline-content {
-  display: inline-block;
-  position: relative;
-  top: attr(height);
-  width: 50%;
-  text-align: left;
-  font-family: monospace;
-  padding-left: 5%;
-}
-
-.timeline-content h1 {
-  color: lightblue;
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.timeline-content h2 {
-  color: darkseagreen;
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.timeline-content a {
-  font-size: 1rem;
-}
-
-.timeline-content p {
-  color: lightblue;
-}
-
-.timeline-content p a {
-  font-size: 0.8rem;
-}
-
-.timeline-label {
-  display: inline-block;
-  position: relative;
-  width: 50%;
-  top: 0;
-  text-align: right;
-  font-family: monospace;
-  padding-right: 5%;
-}
-
-.timeline-label h1 {
+  width: 25vw;
+  height: 75vh;
+  left: 25vw;
+  top: 12.5vh;
+  overflow: visible;
   color: aqua;
-  font-size: 1.2rem;
-  margin: 0;
+  /* text-align: left; */
 }
 
-.timeline-label a {
+.timeline-row-container {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 50vw;
+  left: 25vw;
+  top: 25vh;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline-column {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 30vw;
+}
+
+.timeline-inner-left {
+  position: relative;
+  text-align: right;
+  transition: transform 0.925s;
+  transform: translateX(25vw);
+  padding-right: 5vw;
+}
+
+.timeline-inner-right {
+  padding-left: 5vw;
+  text-align: left;
+  color: white;
+  position: relative;
+  transition: transform 0.925s;
+  transform: translateX(-25vw);
+}
+
+.timeline-inner-in {
+  transition: transform 0.925s;
+  transform: translateX(0);
+}
+
+.timeline-column h4 {
+  font-family: monospace;
+  font-size: 1.2rem;
+  color: aqua;
+  font-style: normal;
+}
+
+.timeline-column h5 {
+  font-family: monospace;
+  font-size: 1rem;
+  color: darkseagreen;
+  font-style: normal;
+}
+
+.timeline-column p {
+  font-family: monospace;
+  color: lightblue;
   font-size: 1rem;
 }
 
-.timeline-label p {
-  color: lightblue;
-}
-
-.timeline-active {
-  border-left: 5px solid aqua;
-  position: relative;
-  left: -5px;
-  top: 10%;
-  height: 10%;
-  width: 25%;
-}
 /* ANIMATION */
 
 .animate-out-left {
@@ -420,7 +370,7 @@ a:hover {
 }
 
 .animate-in-right {
-  transition: transform 0.8s ease-in;
+  transition: transform 0.5s ease-in;
   transform: translateX(50vw);
 }
 
