@@ -1,3 +1,7 @@
+:root {
+  --primary-purple: #1e2131;
+}
+
 .App {
   text-align: center;
   font-family: "Montserrat", sans-serif;
@@ -8,20 +12,26 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   transition: transform 1s ease-out;
 }
 
+.hide-wrapper {
+  transition-delay: 1s;
+  transition-property: opacity;
+  opacity: 0;
+}
+
 a {
-  color: darkseagreen;
+  color: aqua;
 }
 
 a:visited {
-  color: darkseagreen;
+  color: aqua;
 }
 
 a:hover {
-  color: darkseagreen;
+  color: aqua;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -78,7 +88,7 @@ a:hover {
 }
 
 .banner-nav-container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
 }
 
@@ -115,6 +125,42 @@ a:hover {
   height: 5vh !important;
 }
 
+.navbar-animate-in-top {
+  transition-delay: 0.5s;
+  transition: transform 1s;
+  transform: translateY(0);
+}
+
+.navbar-bottom {
+  position: fixed;
+  bottom: 0;
+  /* background-color: darkseagreen; */
+  /* border-bottom-style: solid; */
+  padding: 0px auto;
+  width: 25vw;
+  transition-delay: 0.5s;
+  transition: transform 1s ease-out;
+  /* color: white; */
+  padding-top: 1vh;
+  height: 5vh !important;
+}
+
+.media-links {
+  position: fixed;
+  font-size: 1.5rem;
+  right: 0;
+  top: 0;
+  height: 5vh;
+  margin-right: 2.5vw;
+  margin-left: 2.5vw;
+  color: aqua;
+}
+
+.media-links a {
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+}
+
 .about-left {
   display: inline-block;
   position: fixed;
@@ -123,12 +169,12 @@ a:hover {
   top: 5vh;
   left: 0;
   transition: transform 1s ease-out;
-  transform: translateX(-50vw);
+  transform: translateX(-60vw);
 }
 
 .about-left-inside {
   color: #1e2131;
-  font-size: 10rem;
+  font-size: 7vw;
   width: 100%;
   height: 90vh;
   background-color: lightblue;
@@ -149,7 +195,7 @@ a:hover {
 
 .about-right-inside {
   color: lightblue;
-  font-size: 10rem;
+  font-size: 7vw;
   width: 100%;
   height: 100vh;
 }
@@ -163,7 +209,7 @@ a:hover {
 
 .about-right-content p {
   font-family: monospace;
-  font-size: 1rem;
+  font-size: calc(0.3rem + 1vmin);
 }
 
 .about-right-content ul {
@@ -187,7 +233,7 @@ a:hover {
 
 .about-right-content ul li {
   font-family: monospace;
-  font-size: 1rem;
+  font-size: 0.7vw;
 }
 
 .about-right-what-i-do {
@@ -210,7 +256,7 @@ a:hover {
   top: 5vh;
   left: 0;
   transition: transform 1s;
-  transform: translateX(-50vw);
+  transform: translateX(-75vw);
 }
 
 .experience-right {
@@ -221,7 +267,7 @@ a:hover {
   top: 5vh;
   left: 0;
   transition: transform 0.925s;
-  transform: translateX(150vw);
+  transform: translateX(175vw);
 }
 
 .experience-left-inside {
@@ -231,28 +277,39 @@ a:hover {
   height: 90vh;
   mix-blend-mode: screen;
   text-align: center;
-  font-size: 7rem;
+  font-size: 5vw;
 }
 
 .experience-right-inside {
   background-color: lightblue;
   color: #1e2131;
-  font-size: 7rem;
+  font-size: 5vw;
   width: 100%;
   height: 90vh;
 }
 
 /* TIMELINE */
 
+.timleine-animate-in {
+  transition: transform 1s !important;
+  transform: translateY(0vh) !important;
+}
+
 .timeline-container {
   position: fixed;
-  width: 25vw;
-  height: 75vh;
-  left: 25vw;
-  top: 12.5vh;
+  width: 100vw;
+  height: 100vh;
+  transform: translateY(-300vh);
   overflow: visible;
   color: aqua;
-  /* text-align: left; */
+  transition: transform 1s;
+}
+
+.timeline-canvas-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 12.5vh;
 }
 
 .timeline-row-container {
@@ -262,7 +319,7 @@ a:hover {
   position: relative;
   width: 50vw;
   left: 25vw;
-  top: 25vh;
+  top: 25%;
   margin: 0;
   padding: 0;
 }
@@ -298,14 +355,16 @@ a:hover {
 
 .timeline-column h4 {
   font-family: monospace;
-  font-size: 1.2rem;
+  font-size: calc(0.4rem + 1vmin);
+
   color: aqua;
   font-style: normal;
 }
 
 .timeline-column h5 {
   font-family: monospace;
-  font-size: 1rem;
+  font-size: calc(0.35rem + 1vmin);
+
   color: darkseagreen;
   font-style: normal;
 }
@@ -313,9 +372,134 @@ a:hover {
 .timeline-column p {
   font-family: monospace;
   color: lightblue;
-  font-size: 1rem;
+  font-size: calc(0.3rem + 1vmin);
 }
 
+/* CONTACT */
+
+.contact-container {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 65vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: transform 1s;
+  transform: translateY(-100vh);
+}
+
+.contact-in {
+  transition: transform 1s;
+  transform: translateY(5vh);
+}
+
+.contact-container p {
+  color: lightblue;
+  font-family: monospace;
+  font-size: calc(0.2rem + 1vmin);
+  text-align: center;
+}
+
+.contact-container .form-group {
+  width: 33.333vw;
+}
+
+.contact-container .form-control {
+  width: 33.333vw;
+  background-color: gainsboro;
+  border-radius: 0px;
+  border-color: lightblue;
+  margin-bottom: 2vh;
+  font-family: monospace;
+}
+
+.contact-container .btn-primary {
+  background-color: lightblue;
+  border-color: transparent;
+  font-family: monospace;
+  color: var(--primary-purple);
+}
+/* FOOTER */
+
+.footer-container {
+  position: fixed;
+  width: 100vw;
+  height: 25vh;
+  overflow: visible;
+  background-color: #292d44;
+  color: white;
+  font-family: monospace;
+  transition: transform 1s;
+  transform: translateY(110vh);
+}
+
+.footer-in {
+  transition: transform 1s;
+  transform: translateY(75vh);
+}
+.footer-container::after {
+  content: "";
+  float: right;
+  position: absolute;
+  top: -5vh;
+  right: 0px;
+  width: 0;
+  height: 0;
+  border-left: 50vw solid #292d44;
+  border-right: 50vw solid #292d44;
+  border-top: 5vh solid transparent;
+}
+
+.footer-button {
+  position: relative;
+  top: -22.5px;
+  z-index: 2;
+  background-color: lightblue;
+  border: none;
+  color: var(--primary-purple);
+  width: 50px;
+  height: 45px;
+  text-align: center;
+  display: inline-block;
+  font-size: 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  cursor: pointer;
+  border-radius: 2.5px;
+}
+
+.footer-fa-icon {
+  display: flex;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+}
+
+/*  */
+.footer-content p {
+  color: darkseagreen;
+}
+
+.footer-content a {
+  font-size: 8vh;
+}
+
+.footer-footnote {
+  position: absolute;
+  width: 100%;
+  font-size: 0.7vw;
+  bottom: 0;
+  color: darkseagreen;
+}
+
+.footer-dark {
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  bottom: 0%;
+  background-color: #202336;
+}
 /* ANIMATION */
 
 .animate-out-left {

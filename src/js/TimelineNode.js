@@ -11,7 +11,7 @@ class TimelineNode {
       this.isAnimating = false;
       this.animationExpanding = false;
       this.doneAnimation = false;
-      this.animationLength = 0.2;
+      this.animationLength = 0.4;
       this.currentAnimationLocation = -1;
       this.animationSizeStep = radius * 2 * this.animationLength;
       this.animationCircleCurrentSize = radius;

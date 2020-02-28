@@ -7,64 +7,63 @@ class About extends React.Component {
   }
 
   state = {
-    startPeek: false,
-    showFull: false,
-    peekTextOut: false,
-    showText: false,
-    showTechnologies: false,
-    startHideAbout: false,
-    hideAbout: false
+    aboutBannerLeft: "",
+    aboutBannerRight: "",
+    aboutTitle: "",
+    aboutContent: "",
+    aboutOut: false
   };
 
   animateContent = () => {
-    if (window.scrollY >= window.innerHeight / 4) {
-      this.setState({ startPeek: true });
-    }
-    if (window.scrollY < window.innerHeight / 4) {
-      this.setState({ startPeek: false });
-    }
-
-    if (window.scrollY >= window.innerHeight / 2) {
-      this.setState({ showFull: true });
-    }
-    if (window.scrollY < window.innerHeight / 2) {
-      this.setState({ showFull: false });
-    }
-
-    if (window.scrollY >= window.innerHeight) {
-      this.setState({ peekTextOut: true });
-    }
-    if (window.scrollY < window.innerHeight) {
-      this.setState({ peekTextOut: false });
+    // if (
+    //   this.state.aboutBannerLeft != "" &&
+    //   window.scrollY >= this.props.aboutOut
+    // ) {
+    //   this.setState({ aboutBannerLeft: "-in-left", aboutBannerRight: "" });
+    // }
+    if (!this.state.aboutOut && window.scrollY >= this.props.aboutBannerIn) {
+      this.setState({
+        aboutBannerLeft: "animate-in-left",
+        aboutBannerRight: "animate-in-right"
+      });
+    } else if (
+      this.state.aboutBannerLeft != "" &&
+      window.scrollY < this.props.aboutBannerIn
+    ) {
+      this.setState({ aboutBannerLeft: "", aboutBannerRight: "" });
     }
 
-    if (window.scrollY >= window.innerHeight + window.innerHeight / 6) {
-      this.setState({ showText: true });
-    }
-    if (window.scrollY < window.innerHeight + window.innerHeight / 6) {
-      this.setState({ showText: false });
-    }
-
-    if (window.scrollY >= window.innerHeight + window.innerHeight / 4) {
-      this.setState({ showTechnologies: true });
-    }
-    if (window.scrollY < window.innerHeight + window.innerHeight / 4) {
-      this.setState({ showTechnologies: false });
-    }
-
-    if (window.scrollY >= window.innerHeight * 2) {
-      this.setState({ startHideAbout: true });
-    }
-    if (window.scrollY < window.innerHeight * 2) {
-      this.setState({ startHideAbout: false });
+    if (
+      this.state.aboutContent == "" &&
+      window.scrollY >= this.props.aboutContentIn
+    ) {
+      this.setState({
+        aboutTitle: "about-animate-out",
+        aboutContent: "what-i-do-stage-2"
+      });
+    } else if (
+      this.state.aboutContent != "" &&
+      window.scrollY < this.props.aboutContentIn
+    ) {
+      this.setState({ aboutTitle: "", aboutContent: "" });
     }
 
-    if (window.scrollY >= window.innerHeight * 2.25) {
-      this.setState({ hideAbout: true });
-    }
-    if (window.scrollY < window.innerHeight * 2.25) {
-      this.setState({ hideAbout: false });
-    }
+    if (
+      !this.state.aboutOut &&
+      this.state.aboutContent != "" &&
+      window.scrollY >= this.props.aboutOut
+    ) {
+      this.setState({
+        aboutBannerLeft: "",
+        aboutBannerRight: "",
+        aboutOut: true
+      });
+    } else if (this.state.aboutOut && window.scrollY < this.props.aboutOut)
+      this.setState({
+        aboutBannerLeft: "animate-in-left",
+        aboutBannerRight: "animate-in-right",
+        aboutOut: false
+      });
   };
 
   componentDidMount() {
@@ -75,47 +74,10 @@ class About extends React.Component {
     window.removeEventListener("scroll", this.animateContent);
   }
   render() {
-    let animationLeftState = "";
-    let animationRightState = "";
-    let textState1 = "";
-    let aboutContentState = "";
-    let aboutState = "";
-
-    if (this.state.startPeek && this.state.showFull) {
-      animationLeftState = "animate-in-left";
-      animationRightState = "animate-in-right";
-    } else if (this.state.startPeek) {
-      animationLeftState = "peek-in-left";
-      animationRightState = "";
-    }
-
-    if (this.state.peekTextOut && this.state.showText) {
-      textState1 = "about-animate-out";
-      aboutContentState = "what-i-do-stage-1";
-    } else if (this.state.peekTextOut) {
-      aboutContentState = "what-i-do-peek";
-    }
-
-    if (this.state.showTechnologies) {
-      aboutContentState = "what-i-do-stage-2";
-    }
-
-    if (this.state.startHideAbout) {
-      // aboutState = "about-peek-out-top";
-    }
-    if (this.state.hideAbout) {
-      animationLeftState = "animate-out-left";
-      animationRightState = "animate-out-right";
-      // aboutState = "about-animate-out-top";
-    }
-    // if (this.state.hideAbout) {
-    //   aboutState = "about-animate-out-top";
-    // }
-
     return (
-      <div className={"wrapper " + aboutState}>
+      <div className={"wrapper"}>
         <div className={""}>
-          <div className={"about-left " + animationLeftState}>
+          <div className={"about-left " + this.state.aboutBannerLeft}>
             <div className="about-left-inside">
               <div className="center">ABOUT</div>
             </div>
@@ -127,21 +89,21 @@ class About extends React.Component {
                 flatTop
               />
             </div>
-
-            {/* <p>
-            ABOUT&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;WORK&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;CONTACT
-          </p> */}
             <div className="about-left-inside-edge"></div>
           </div>
-          <div className={"about-right " + animationRightState}>
+          <div className={"about-right " + this.state.aboutBannerRight}>
             <div className="about-right-inside">
-              <div className={"animated-title-text center " + textState1}>
+              <div
+                className={
+                  "animated-title-text center " + this.state.aboutTitle
+                }
+              >
                 ABOUT
               </div>
               <div
                 className={
                   "about-right-content about-right-what-i-do " +
-                  aboutContentState
+                  this.state.aboutContent
                 }
               >
                 <h4 className="banner-mono">What I Do</h4>

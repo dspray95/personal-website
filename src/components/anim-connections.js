@@ -38,12 +38,37 @@ class Canvas extends React.Component {
       0.25
     );
     this.state = {
-      dotHandler: dotHandler
+      dotHandler: dotHandler,
+      initialWidth: window.innerWidth,
+      initialHeight: window.innerHeight
     };
   }
 
   saveContext(ctx) {
     this.ctx = ctx;
+  }
+
+  resizeScale() {
+    const dotHandler = new DotHandler(
+      300,
+      window.innerWidth,
+      window.innerHeight,
+      window.innerWidth / 3,
+      0.25
+    );
+    this.setState({
+      dotHandler: dotHandler,
+      initialWidth: window.innerWidth,
+      initialHeight: window.innerHeight
+    });
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.resizeScale.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("rezise", this.resizeScale.bind(this));
   }
 
   componentDidUpdate() {
@@ -71,7 +96,7 @@ class Canvas extends React.Component {
 
 class PureCanvas extends React.Component {
   shouldComponentUpdate() {
-    return false;
+    return true;
   }
 
   render() {

@@ -2,9 +2,17 @@ import React, { Component } from "react";
 import TimelineNode from "../js/TimelineNode";
 
 export class Timeline extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  state = {
+    timelineCanvasComponent: ""
+  };
+
   render() {
     return (
-      <div className="timeline-container">
+      <div className={"timeline-canvas-container " + this.props.showTimeline}>
         <TimelineCanvas
           width={window.innerWidth * 0.5}
           height={window.innerHeight * 0.75}
@@ -25,6 +33,8 @@ class TimelineCanvas extends React.Component {
   componentDidMount() {
     this.rAF = requestAnimationFrame(this.updateAnimationState);
   }
+
+  componentWillUnmount() {}
 
   updateAnimationState() {
     this.setState(prevState => ({ angle: prevState.angle + 1 }));
@@ -50,20 +60,18 @@ class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.saveContext = this.saveContext.bind(this);
+    this.state = {
+      width: window.innerWidth * 0.5,
+      height: window.innerHeight * 0.75
+    };
     this.generateNodes(
       3,
-      this.props.width * 0.5,
+      this.state.width * 0.5,
       25,
-      this.props.height - 25,
+      this.state.height - 25,
       5
     );
   }
-
-  state = {
-    isTriggered: false,
-    flashAnimationLength: 5,
-    flashAnimationTimeRemaining: 0
-  };
 
   saveContext(ctx) {
     this.ctx = ctx;
@@ -98,17 +106,41 @@ class Canvas extends React.Component {
         node.deactivate();
       });
     } else {
-      console.log(activeNode);
+      this.nodes.forEach(node => {
+        node.deactivate();
+      });
       this.nodes[activeNode].startAnimation();
     }
   }
 
+  resizeScale() {
+    this.setState({
+      width: window.innerWidth * 0.5,
+      height: window.innerHeight * 0.75
+    });
+    this.generateNodes(
+      3,
+      this.state.width * 0.5,
+      25,
+      this.state.height - 25,
+      5
+    );
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.resizeScale.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("rezise", this.resizeScale.bind(this));
+  }
+
   componentDidUpdate() {
-    const width = this.props.width;
-    const height = this.props.height;
+    const width = this.state.width;
+    const height = this.state.height;
     const top = 25;
-    const bottom = this.props.height - 25;
-    const center = this.props.width * 0.5;
+    const bottom = this.state.height - 25;
+    const center = this.state.width * 0.5;
     const circleRadius = 5;
     const flashCircleRadius = circleRadius * 2;
     const ctx = this.ctx;
@@ -145,8 +177,8 @@ class Canvas extends React.Component {
     return (
       <PureCanvas
         contextRef={this.saveContext}
-        width={this.props.width}
-        height={this.props.height}
+        width={this.state.width}
+        height={this.state.height}
       ></PureCanvas>
     );
   }
@@ -154,7 +186,7 @@ class Canvas extends React.Component {
 
 class PureCanvas extends React.Component {
   shouldComponentUpdate() {
-    return false;
+    return true;
   }
 
   render() {

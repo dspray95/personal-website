@@ -6,21 +6,28 @@ class AnimatedHeader extends React.Component {
     super(props);
   }
 
-  state = { hideBottom: false, hideTop: false };
+  state = { bottomState: "", topState: "" };
 
   animateContent = () => {
-    if (window.scrollY > this.containerRef.clientHeight / 8) {
-      this.setState({ hideBottom: true });
-    }
-    if (window.scrollY > this.containerRef.clientHeight / 4) {
-      this.setState({ hideTop: true });
+    if (
+      this.state.bottomState == "" &&
+      window.scrollY >= this.props.introBottomOut
+    ) {
+      this.setState({ bottomState: "animate-out-left" });
+    } else if (
+      this.state.bottomState != "" &&
+      window.scrollY < this.props.introBottomOut
+    ) {
+      this.setState({ bottomState: "" });
     }
 
-    if (window.scrollY < this.containerRef.clientHeight / 4) {
-      this.setState({ hideTop: false });
-    }
-    if (window.scrollY < this.containerRef.clientHeight / 8) {
-      this.setState({ hideBottom: false });
+    if (this.state.topState == "" && window.scrollY >= this.props.introTopOut) {
+      this.setState({ topState: "animate-out-right" });
+    } else if (
+      this.state.topState != "" &&
+      window.scrollY < this.props.introTopOut
+    ) {
+      this.setState({ topState: "" });
     }
   };
 
@@ -33,9 +40,6 @@ class AnimatedHeader extends React.Component {
   }
 
   render() {
-    let hideBottom = this.state.hideBottom ? "animate-out-left" : " ";
-    let hideTop = this.state.hideTop ? "animate-out-right" : " ";
-
     return (
       <div
         className="container"
@@ -58,13 +62,25 @@ class AnimatedHeader extends React.Component {
             className="col-4 offset-2 align-self-center text-left "
             style={{}}
           >
-            <p className={"banner-mono animated-title-text " + hideTop}>
+            <p
+              className={
+                "banner-mono animated-title-text " + this.state.topState
+              }
+            >
               Hello, my name is
             </p>
-            <h1 className={"banner-name animated-title-text " + hideTop}>
+            <h1
+              className={
+                "banner-name animated-title-text " + this.state.topState
+              }
+            >
               David.
             </h1>
-            <h2 className={"text-primray animated-title-text " + hideBottom}>
+            <h2
+              className={
+                "text-primray animated-title-text " + this.state.bottomState
+              }
+            >
               I write code.
             </h2>
           </div>
