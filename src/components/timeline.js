@@ -87,7 +87,6 @@ class Canvas extends React.Component {
     for (i = 0; i < count; i++) {
       yPos = yPos + spacing;
       nodes.push(new TimelineNode(center, yPos, 4, true));
-      console.log(yPos);
     }
     nodes.push(new TimelineNode(center, bottom, 6, false));
     this.nodes = nodes;

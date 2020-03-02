@@ -17,125 +17,180 @@ class Experience extends React.Component {
     timelineMiddleState: "",
     timelineBottomState: "",
     experienceWrapperHide: "hide-wrapper",
-    isTimelineOut: false
+    isTimelineOut: false,
+    isLocked: false,
+    hasBeenForcedOut: false
   };
+
+  unlock() {
+    this.setState({ isLocked: false });
+  }
+
+  forceIn() {
+    //We don't need to force in if timeline bottom is already in
+    if (!this.state.timelineBottomState != "timeline-inner-in") {
+      this.setState({
+        isLocked: true,
+        timelineState: "timleine-animate-in",
+        timelineMiddleState: "timeline-inner-in",
+        timelineBottomState: "timeline-inner-in",
+        timelineTopState: "timeline-inner-in"
+      });
+      setTimeout(this.unlock.bind(this), 200);
+    }
+  }
+
+  forceOut() {
+    //We don't need to force out if the banner and timeline
+    //are already out
+    if (
+      this.state.experienceBannerLeft !== "" &&
+      this.state.timelineBottomState !== ""
+    ) {
+      this.setState({
+        expereinceBannerLeft: "",
+        experienceBannerRight: "",
+        experienceBannerOut: "",
+        isExperienceBannerOut: false,
+        timelineState: "",
+        timelineTopState: "",
+        timelineMiddleState: "",
+        timelineBottomState: "",
+        experienceWrapperHide: "hide-wrapper",
+        isTimelineOut: false
+      });
+      // this.unlock();
+      setTimeout(this.unlock.bind(this), 200);
+    }
+  }
+
+  componentWillUpdate() {
+    if (this.props.forceIn && !this.state.isLocked) {
+      this.forceIn();
+    }
+    if (this.props.forceOut && !this.state.isLocked) {
+      this.forceOut();
+    }
+  }
 
   animateContent = () => {
     //Banner in and out
-    if (
-      !this.state.isExperienceBannerOut &&
-      this.state.expereinceBannerLeft == "" &&
-      window.scrollY >= this.props.experienceBannerIn
-    ) {
-      this.setState({
-        expereinceBannerLeft: "animate-in-left",
-        experienceBannerRight: "animate-in-right",
-        experienceWrapperHide: ""
-      });
-    } else if (
-      !this.state.isExperienceBannerOut &&
-      this.state.expereinceBannerLeft != "" &&
-      window.scrollY < this.props.experienceBannerIn
-    ) {
-      this.setState({
-        expereinceBannerLeft: "",
-        experienceBannerRight: "",
-        experienceWrapperHide: "hide-wrapper"
-      });
-    }
+    if (!this.state.isLocked && !(this.props.forceIn || this.props.foceOut)) {
+      if (
+        !this.state.isExperienceBannerOut &&
+        this.state.expereinceBannerLeft == "" &&
+        window.scrollY >= this.props.experienceBannerIn
+      ) {
+        this.setState({
+          expereinceBannerLeft: "animate-in-left",
+          experienceBannerRight: "animate-in-right",
+          experienceWrapperHide: ""
+        });
+      } else if (
+        !this.state.isExperienceBannerOut &&
+        this.state.expereinceBannerLeft != "" &&
+        window.scrollY < this.props.experienceBannerIn
+      ) {
+        this.setState({
+          expereinceBannerLeft: "",
+          experienceBannerRight: "",
+          experienceWrapperHide: "hide-wrapper"
+        });
+      }
 
-    if (
-      !this.state.isExperienceBannerOut &&
-      this.state.expereinceBannerLeft != "" &&
-      window.scrollY >= this.props.experienceBannerOut
-    ) {
-      this.setState({
-        expereinceBannerLeft: "",
-        experienceBannerRight: "",
-        experienceWrapperHide: "hide-wrapper",
-        isExperienceBannerOut: true
-      });
-    } else if (
-      this.state.isExperienceBannerOut &&
-      window.scrollY < this.props.experienceBannerOut
-    ) {
-      this.setState({
-        expereinceBannerLeft: "animate-in-left",
-        experienceBannerRight: "animate-in-right",
-        experienceWrapperHide: "",
-        isExperienceBannerOut: false
-      });
-    }
+      if (
+        !this.state.isExperienceBannerOut &&
+        this.state.expereinceBannerLeft != "" &&
+        window.scrollY >= this.props.experienceBannerOut
+      ) {
+        this.setState({
+          expereinceBannerLeft: "",
+          experienceBannerRight: "",
+          experienceWrapperHide: "hide-wrapper",
+          isExperienceBannerOut: true
+        });
+      } else if (
+        this.state.isExperienceBannerOut &&
+        window.scrollY < this.props.experienceBannerOut
+      ) {
+        this.setState({
+          expereinceBannerLeft: "animate-in-left",
+          experienceBannerRight: "animate-in-right",
+          experienceWrapperHide: "",
+          isExperienceBannerOut: false
+        });
+      }
 
-    //Timeline object in and out
-    if (
-      !this.state.isTimelineOut &&
-      this.state.timelineState == "" &&
-      window.scrollY >= this.props.experienceTimelineIn
-    ) {
-      this.setState({ timelineState: "timleine-animate-in" });
-    } else if (
-      !this.state.isTimelineOut &&
-      this.state.timelineState != "" &&
-      window.scrollY < this.props.experienceTimelineIn
-    ) {
-      this.setState({ timelineState: "" });
-    }
+      //Timeline object in and out
+      if (
+        !this.state.isTimelineOut &&
+        this.state.timelineState == "" &&
+        window.scrollY >= this.props.experienceTimelineIn
+      ) {
+        this.setState({ timelineState: "timleine-animate-in" });
+      } else if (
+        !this.state.isTimelineOut &&
+        this.state.timelineState != "" &&
+        window.scrollY < this.props.experienceTimelineIn
+      ) {
+        this.setState({ timelineState: "" });
+      }
 
-    //Timeline items in and out
-    if (
-      this.state.timelineTopState == "" &&
-      window.scrollY >= this.props.experienceTimelineTopIn
-    ) {
-      this.setState({ timelineTopState: "timeline-inner-in" });
-    } else if (
-      this.state.timelineTopState != "" &&
-      window.scrollY < this.props.experienceTimelineTopIn
-    ) {
-      this.setState({ timelineTopState: "" });
-    }
+      //Timeline items in and out
+      if (
+        this.state.timelineTopState == "" &&
+        window.scrollY >= this.props.experienceTimelineTopIn
+      ) {
+        this.setState({ timelineTopState: "timeline-inner-in" });
+      } else if (
+        this.state.timelineTopState != "" &&
+        window.scrollY < this.props.experienceTimelineTopIn
+      ) {
+        this.setState({ timelineTopState: "" });
+      }
 
-    if (
-      !this.state.isTimelineOut &&
-      this.state.timelineState != "" &&
-      window.scrollY >= this.props.experienceTimelineOut
-    ) {
-      this.setState({
-        timelineState: "",
-        isTimelineOut: true
-      });
-    } else if (
-      this.state.isTimelineOut &&
-      window.scrollY < this.props.experienceTimelineOut
-    ) {
-      this.setState({
-        timelineState: "",
-        isTimelineOut: false
-      });
-    }
+      if (
+        !this.state.isTimelineOut &&
+        this.state.timelineState != "" &&
+        window.scrollY >= this.props.experienceTimelineOut
+      ) {
+        this.setState({
+          timelineState: "",
+          isTimelineOut: true
+        });
+      } else if (
+        this.state.isTimelineOut &&
+        window.scrollY < this.props.experienceTimelineOut
+      ) {
+        this.setState({
+          timelineState: "",
+          isTimelineOut: false
+        });
+      }
 
-    if (
-      this.state.timelineMiddleState == "" &&
-      window.scrollY >= this.props.experienceTimelineMiddleIn
-    ) {
-      this.setState({ timelineMiddleState: "timeline-inner-in" });
-    } else if (
-      this.state.timelineMiddleState != "" &&
-      window.scrollY < this.props.experienceTimelineMiddleIn
-    ) {
-      this.setState({ timelineMiddleState: "" });
-    }
+      if (
+        this.state.timelineMiddleState == "" &&
+        window.scrollY >= this.props.experienceTimelineMiddleIn
+      ) {
+        this.setState({ timelineMiddleState: "timeline-inner-in" });
+      } else if (
+        this.state.timelineMiddleState != "" &&
+        window.scrollY < this.props.experienceTimelineMiddleIn
+      ) {
+        this.setState({ timelineMiddleState: "" });
+      }
 
-    if (
-      this.state.timelineBottomState == "" &&
-      window.scrollY >= this.props.experienceTimelineBottomIn
-    ) {
-      this.setState({ timelineBottomState: "timeline-inner-in" });
-    } else if (
-      this.state.timelineBottomState != "" &&
-      window.scrollY < this.props.experienceTimelineBottomIn
-    ) {
-      this.setState({ timelineBottomState: "" });
+      if (
+        this.state.timelineBottomState == "" &&
+        window.scrollY >= this.props.experienceTimelineBottomIn
+      ) {
+        this.setState({ timelineBottomState: "timeline-inner-in" });
+      } else if (
+        this.state.timelineBottomState != "" &&
+        window.scrollY < this.props.experienceTimelineBottomIn
+      ) {
+        this.setState({ timelineBottomState: "" });
+      }
     }
   };
 

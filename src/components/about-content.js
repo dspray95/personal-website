@@ -11,59 +11,147 @@ class About extends React.Component {
     aboutBannerRight: "",
     aboutTitle: "",
     aboutContent: "",
-    aboutOut: false
+    aboutOut: false,
+    isLocked: false
   };
 
-  animateContent = () => {
-    // if (
-    //   this.state.aboutBannerLeft != "" &&
-    //   window.scrollY >= this.props.aboutOut
-    // ) {
-    //   this.setState({ aboutBannerLeft: "-in-left", aboutBannerRight: "" });
-    // }
-    if (!this.state.aboutOut && window.scrollY >= this.props.aboutBannerIn) {
+  componentWillUpdate() {
+    if (!this.state.isLocked && this.props.forceOut) {
+      this.forceOut();
+    }
+  }
+
+  forceIn() {
+    if (this.state.aboutBannerLeft === "") {
       this.setState({
         aboutBannerLeft: "animate-in-left",
-        aboutBannerRight: "animate-in-right"
-      });
-    } else if (
-      this.state.aboutBannerLeft != "" &&
-      window.scrollY < this.props.aboutBannerIn
-    ) {
-      this.setState({ aboutBannerLeft: "", aboutBannerRight: "" });
-    }
-
-    if (
-      this.state.aboutContent == "" &&
-      window.scrollY >= this.props.aboutContentIn
-    ) {
-      this.setState({
-        aboutTitle: "about-animate-out",
-        aboutContent: "what-i-do-stage-2"
-      });
-    } else if (
-      this.state.aboutContent != "" &&
-      window.scrollY < this.props.aboutContentIn
-    ) {
-      this.setState({ aboutTitle: "", aboutContent: "" });
-    }
-
-    if (
-      !this.state.aboutOut &&
-      this.state.aboutContent != "" &&
-      window.scrollY >= this.props.aboutOut
-    ) {
-      this.setState({
-        aboutBannerLeft: "",
         aboutBannerRight: "",
-        aboutOut: true
-      });
-    } else if (this.state.aboutOut && window.scrollY < this.props.aboutOut)
-      this.setState({
-        aboutBannerLeft: "animate-in-left",
-        aboutBannerRight: "animate-in-right",
+        aboutTitle: "",
+        aboutContent: "what-i-do-stage-2",
         aboutOut: false
       });
+    }
+  }
+
+  forceOut() {
+    //We don't need to force out if the banner and timeline
+    //are already out
+    if (this.state.aboutBannerLeft !== "") {
+      this.setState({
+        isLocked: true,
+        aboutBannerLeft: "",
+        aboutBannerRight: "",
+        aboutTitle: "",
+        aboutContent: "",
+        aboutOut: false
+      });
+
+      setTimeout(this.setState({ isLocked: false }), 200);
+    }
+  }
+
+  animateContent = () => {
+    if (this.props.isSmallScreen) {
+      //bring banner in
+      if (
+        !this.state.aboutOut &&
+        window.scrollY >= this.props.aboutBannerIn &&
+        this.state.aboutContent !== "what-i-do-stage-2"
+      ) {
+        this.setState({ aboutBannerLeft: "animate-in-left" });
+      } else if (
+        this.state.aboutBannerLeft != "" &&
+        window.scrollY < this.props.aboutBannerIn
+      ) {
+        this.setState({ aboutBannerLeft: "" });
+      }
+
+      //Bring content in, send banner out
+      if (
+        this.state.aboutContent == "" &&
+        window.scrollY >= this.props.aboutContentIn &&
+        !this.state.aboutOut
+      ) {
+        this.setState({
+          aboutBannerLeft: "",
+          aboutBannerRight: "animate-in-left",
+          aboutContent: "what-i-do-stage-2"
+        });
+      } else if (
+        this.state.aboutContent != "" &&
+        window.scrollY < this.props.aboutContentIn
+      ) {
+        this.setState({ aboutContent: "", aboutBannerRight: "" });
+      }
+      //send everything out
+
+      if (
+        !this.state.aboutOut &&
+        this.state.aboutContent !== "" &&
+        window.scrollY >= this.props.aboutOut
+      ) {
+        console.log("send about out");
+        this.setState({
+          aboutBannerLeft: "",
+          aboutBannerRight: "",
+          aboutContent: "",
+          aboutOut: true
+        });
+      } else if (this.state.aboutOut && window.scrollY < this.props.aboutOut) {
+        this.setState({
+          aboutBannerLeft: "",
+          aboutBannerRight: "animate-in-left",
+          aboutContent: "what-i-do-stage-2",
+          aboutOut: false
+        });
+      }
+    }
+
+    if (!this.props.isSmallScreen) {
+      if (!this.state.aboutOut && window.scrollY >= this.props.aboutBannerIn) {
+        this.setState({
+          aboutBannerLeft: "animate-in-left",
+          aboutBannerRight: "animate-in-right"
+        });
+      } else if (
+        this.state.aboutBannerLeft != "" &&
+        window.scrollY < this.props.aboutBannerIn
+      ) {
+        this.setState({ aboutBannerLeft: "", aboutBannerRight: "" });
+      }
+      if (
+        this.state.aboutContent == "" &&
+        window.scrollY >= this.props.aboutContentIn
+      ) {
+        this.setState({
+          aboutTitle: "about-animate-out",
+          aboutContent: "what-i-do-stage-2"
+        });
+      } else if (
+        this.state.aboutContent != "" &&
+        window.scrollY < this.props.aboutContentIn
+      ) {
+        this.setState({ aboutTitle: "", aboutContent: "" });
+      }
+
+      if (
+        !this.state.aboutOut &&
+        this.state.aboutContent != "" &&
+        window.scrollY >= this.props.aboutOut
+      ) {
+        this.setState({
+          aboutBannerLeft: "",
+          aboutBannerRight: "",
+          aboutOut: true
+        });
+      } else if (this.state.aboutOut && window.scrollY < this.props.aboutOut) {
+        this.setState({
+          aboutBannerLeft: "animate-in-left",
+          aboutBannerRight: "animate-in-right",
+          aboutOut: false
+        });
+      }
+    }
   };
 
   componentDidMount() {
@@ -95,7 +183,8 @@ class About extends React.Component {
             <div className="about-right-inside">
               <div
                 className={
-                  "animated-title-text center " + this.state.aboutTitle
+                  "about-right-banner animated-title-text center " +
+                  this.state.aboutTitle
                 }
               >
                 ABOUT

@@ -58,31 +58,31 @@ class AnimatedHeader extends React.Component {
           className="row justify-content-center"
           style={{ height: "80vh", width: "100%", position: "fixed" }}
         >
-          <div
-            className="col-4 offset-2 align-self-center text-left "
-            style={{}}
-          >
-            <p
-              className={
-                "banner-mono animated-title-text " + this.state.topState
-              }
-            >
-              Hello, my name is
-            </p>
-            <h1
-              className={
-                "banner-name animated-title-text " + this.state.topState
-              }
-            >
-              David.
-            </h1>
-            <h2
-              className={
-                "text-primray animated-title-text " + this.state.bottomState
-              }
-            >
-              I write code.
-            </h2>
+          <div className="col-12 align-self-center text-left " style={{}}>
+            <div className="banner">
+              <p
+                className={
+                  "banner-mono animated-title-text " + this.state.topState
+                }
+              >
+                Hello, my name is
+              </p>
+              <h1
+                className={
+                  "banner-name animated-title-text " + this.state.topState
+                }
+              >
+                David.
+              </h1>
+              <h2
+                className={
+                  "banner-text text-primray animated-title-text " +
+                  this.state.bottomState
+                }
+              >
+                I write code.
+              </h2>
+            </div>
           </div>
         </div>
       </div>

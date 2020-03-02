@@ -78,7 +78,7 @@ class Footer extends Component {
         <div className={"footer-container " + this.state.footerState}>
           <button
             className="footer-button"
-            onClick={this.props.scrollCallback.bind(this, "top")}
+            onClick={() => this.props.scrollCallback("top")}
           >
             <FaAngleDoubleUp className="footer-fa-icon" />
           </button>

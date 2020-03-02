@@ -73,7 +73,6 @@ class TimelineNode {
         !this.animationExpanding &&
         this.animationCircleCurrentSize > this.radius * 2
       ) {
-        console.log("shrinking");
         this.animationCircleCurrentSize -= this.animationSizeStep;
       }
       if (this.animationCircleCurrentSize < 0) {

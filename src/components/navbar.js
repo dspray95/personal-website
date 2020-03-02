@@ -45,84 +45,43 @@ class NavBar extends React.Component {
     window.removeEventListener("scroll", this.animateContent);
   }
   render() {
+    let about = "about";
     return (
       <div className="wrapper" style={{ zIndex: 999 }}>
         <div className="row justify-content-center" style={{ width: "100vw" }}>
           <div
             className={
-              "col-3 navbar-bottom text-primray " + this.state.navbarBottomState
+              "navbar-bottom text-primray " + this.state.navbarBottomState
             }
           >
-            <a
-              href="#"
-              onClick={this.props.scrollCallback.bind(
-                this,
-                this.props.timings,
-                "about"
-              )}
-            >
+            <button onClick={() => this.props.scrollCallback("about")}>
               ABOUT
-            </a>
+            </button>
             &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
-            <a
-              href="#"
-              onClick={this.props.scrollCallback.bind(
-                this,
-                this.props.timings,
-                "experience"
-              )}
-            >
+            <button onClick={() => this.props.scrollCallback("experience")}>
               WORK
-            </a>
+            </button>
             &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
-            <a
-              href="#"
-              onClick={this.props.scrollCallback.bind(
-                this,
-                this.props.timings,
-                "contact"
-              )}
-            >
+            <button onClick={() => this.props.scrollCallback("contact")}>
               CONTACT
-            </a>
+            </button>
           </div>
           <div
             className={
               "text-primray navbar-locked " + this.state.navbarTopState
             }
           >
-            <a
-              href="#"
-              onClick={this.props.scrollCallback.bind(
-                this,
-                this.props.timings,
-                "about"
-              )}
-            >
+            <button onClick={() => this.props.scrollCallback("about")}>
               ABOUT
-            </a>
+            </button>
             &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
-            <a
-              href="#"
-              onClick={this.props.scrollCallback.bind(
-                this,
-                this.props.timings,
-                "experience"
-              )}
-            >
+            <button onClick={() => this.props.scrollCallback("experience")}>
               WORK
-            </a>
+            </button>
             &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
-            <a
-              href="#"
-              onClick={this.props.scrollCallback.bind(
-                this,
-                this.props.timings,
-                "contact"
-              )}
-            >
+            <button onClick={() => this.props.scrollCallback("contact")}>
               CONTACT
-            </a>
+            </button>
           </div>
         </div>
         <div className="media-links">
